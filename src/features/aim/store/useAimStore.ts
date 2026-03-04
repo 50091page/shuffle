@@ -3,7 +3,7 @@ import {
   DEFAULT_TARGET_DURATION_MS,
   MAX_TARGET_DURATION_MS,
   MIN_TARGET_DURATION_MS,
-} from "../constants";
+} from "../constants.js";
 
 export type AimGameState = "idle" | "playing" | "paused" | "finished";
 export type TargetStyleKey = "ember" | "mint" | "violet" | "sunset" | "frost";

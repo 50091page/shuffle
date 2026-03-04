@@ -41,19 +41,35 @@ function runEmptySwapGuardTest() {
 }
 
 function runFairnessDistributionTest() {
-  const iterations = 50000;
-  const random = createSeededRandom(50091);
-  let swapped = 0;
+  const scenarios = [
+    { label: "seed=50091", seed: 50091, iterations: 100000 },
+    { label: "seed=1337", seed: 1337, iterations: 100000 },
+    { label: "seed=20260304", seed: 20260304, iterations: 100000 },
+  ];
 
-  for (let i = 0; i < iterations; i += 1) {
-    const [result] = shuffleSwapRows([{ left: "L", right: "R", locked: false }], true, random);
-    if (result.left === "R") {
-      swapped += 1;
+  const lines: string[] = [];
+
+  scenarios.forEach((scenario) => {
+    const random = createSeededRandom(scenario.seed);
+    let swapped = 0;
+
+    for (let i = 0; i < scenario.iterations; i += 1) {
+      const [result] = shuffleSwapRows([{ left: "L", right: "R", locked: false }], true, random);
+      if (result.left === "R") {
+        swapped += 1;
+      }
     }
-  }
 
-  const ratio = swapped / iterations;
-  assert(ratio > 0.49 && ratio < 0.51, `Swap ratio should be near 50%. got=${ratio.toFixed(4)}`);
+    const ratio = swapped / scenario.iterations;
+    assert(
+      ratio > 0.49 && ratio < 0.51,
+      `Swap ratio should stay near 50% (${scenario.label}). got=${ratio.toFixed(4)}`
+    );
+    lines.push(`${scenario.label}: ${swapped}/${scenario.iterations} (${(ratio * 100).toFixed(2)}%)`);
+  });
+
+  console.log("shuffle fairness report");
+  lines.forEach((line) => console.log(`- ${line}`));
 }
 
 export function runShuffleSwapTests() {

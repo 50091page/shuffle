@@ -1,4 +1,4 @@
-import type { TargetLifetimeMs } from "./store/useAimStore";
+import type { TargetLifetimeMs } from "./store/useAimStore.js";
 
 export const TOTAL_TARGETS = 30;
 export const TARGET_RADIUS = 15;
