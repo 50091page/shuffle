@@ -10,10 +10,13 @@
     "test": "tsc -p tsconfig.test.json && node .test-dist/tests/all.test.js"
   },
   "dependencies": {
+    "@pixi/react": "^7.1.2",
     "@radix-ui/react-separator": "^1.1.8",
+    "pixi.js": "^7.4.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^6.28.2"
+    "react-router-dom": "^6.28.2",
+    "zustand": "^5.0.8"
   },
   "devDependencies": {
     "@types/react": "^18.3.12",

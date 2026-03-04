@@ -2,15 +2,18 @@ import type { KeyboardEvent } from "react";
 import { useNavigate } from "react-router-dom";
 
 type MenuCardStatus = "active" | "comingSoon";
+type MenuCardTone = "default" | "aim";
 
 type MenuCard = {
   id: string;
   title: string;
   description: string;
   path?: string;
-  tag: "UTILITY" | "COMING SOON";
+  tag: "UTILITY" | "MINIGAME" | "COMING SOON";
   status: MenuCardStatus;
+  tone?: MenuCardTone;
   decoImage?: string;
+  decoSize?: "default" | "small";
 };
 
 const MENU_CARDS: MenuCard[] = [
@@ -21,14 +24,20 @@ const MENU_CARDS: MenuCard[] = [
     path: "/shuffle",
     tag: "UTILITY",
     status: "active",
+    tone: "default",
     decoImage: `${import.meta.env.BASE_URL}img/penguin.png`,
+    decoSize: "small",
   },
   {
-    id: "coming-soon",
-    title: "추가 기능 준비중...",
-    description: "업데이트 예정입니다.",
-    tag: "COMING SOON",
-    status: "comingSoon",
+    id: "aim-trainer",
+    title: "에임 훈련장 (Aim Trainer)",
+    description: "에임 훈련 미니게임",
+    path: "/aim-trainer",
+    tag: "MINIGAME",
+    status: "active",
+    tone: "aim",
+    decoImage: `${import.meta.env.BASE_URL}img/aim-image.png`,
+    decoSize: "default",
   },
 ];
 
@@ -57,7 +66,7 @@ function MenuCardItem({ card, order, onNavigate }: MenuCardItemProps) {
 
   return (
     <article
-      className={`menu-card menu-card-${card.status} ${
+      className={`menu-card menu-card-${card.status} menu-card-tone-${card.tone ?? "default"} ${
         isClickable ? "menu-card-clickable" : "menu-card-disabled"
       }`}
       onClick={onCardClick}
@@ -80,7 +89,9 @@ function MenuCardItem({ card, order, onNavigate }: MenuCardItemProps) {
           src={card.decoImage}
           alt=""
           aria-hidden="true"
-          className="menu-card-deco-image"
+          className={`menu-card-deco-image${
+            card.decoSize === "small" ? " menu-card-deco-image-small" : ""
+          }`}
           loading="lazy"
         />
       ) : null}

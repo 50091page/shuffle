@@ -1,3 +1,4 @@
+import { BackToMenuButton } from "../components/BackToMenuButton";
 import { LolTool } from "../features/lol/LolTool";
 import { PubgTool } from "../features/pubg/PubgTool";
 
@@ -13,14 +14,7 @@ export function ShufflePage({ onNavigateMenu }: ShufflePageProps) {
         <PubgTool />
       </main>
       <div className="mt-3 flex justify-start">
-        <button
-          type="button"
-          className="menu-chip"
-          onClick={onNavigateMenu}
-          aria-label="메인 메뉴로 이동"
-        >
-          ← 메인 메뉴
-        </button>
+        <BackToMenuButton onClick={onNavigateMenu} />
       </div>
     </div>
   );

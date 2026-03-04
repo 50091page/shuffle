@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { HashRouter, Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { useTheme } from "./hooks/useTheme";
+import { AimTrainerPage } from "./pages/AimTrainerPage";
 import { MenuPage } from "./pages/MenuPage";
 import { ShufflePage } from "./pages/ShufflePage";
 
@@ -54,6 +55,7 @@ function AppFrame() {
         <Routes>
           <Route path="/" element={<MenuPage />} />
           <Route path="/shuffle" element={<ShufflePage onNavigateMenu={() => navigate("/")} />} />
+          <Route path="/aim-trainer" element={<AimTrainerPage onNavigateMenu={() => navigate("/")} />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>
